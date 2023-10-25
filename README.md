@@ -23,4 +23,4 @@ With this application, users can create their accounts, upload audio files, tran
 - For transcribing audio files, this application uses Google Cloud Speech API
 
 ### Summarizing:
-- To summarize the transcribed text, it uses OpenAI API and easily summarizes the audio file
+- To summarize the transcribed text, it uses OpenAI API and easily summarizes it.
