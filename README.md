@@ -15,6 +15,8 @@
 
 ## How it works:
 With this application, users can create their accounts, upload audio files, transcribe the text, summarize the content, and securely store all of this data within the database.
+### - But for now, the application can only transcribe files that are shorter than 1minute because of the Google Cloud Speech's limit.
+
 
 ## Features:
 ### Transcribing:
