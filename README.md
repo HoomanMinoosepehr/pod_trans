@@ -25,3 +25,6 @@ This application is dockerized, so for running the application, after cloning th
 
 ### Summarizing:
 - To summarize the transcribed text, it uses OpenAI API and easily summarizes it.
+
+### Docker:
+- The application is Dockerized, so it's really easy to develop or deploy. 
