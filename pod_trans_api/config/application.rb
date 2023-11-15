@@ -32,13 +32,15 @@ module PodTransApi
     # config.eager_load_paths << Rails.root.join("extras")
     Rails.application.config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '127.0.0.1:8081'
+        origins 'localhost:5050'
         resource '/api/v1/*',
         headers: :any,
         methods: [:get, :post, :patch, :put, :delete],
         credentials: true
       end
     end
+
+    # config.web_console.whitelisted_ips = 'localhost'
 
     # Don't generate system test files.
     config.generators.system_tests = nil

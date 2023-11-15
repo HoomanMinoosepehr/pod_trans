@@ -1,4 +1,4 @@
-const baseUrl = 'http://127.0.0.1:3000/api/v1/'
+const baseUrl = 'http://localhost:3030/api/v1/'
 
 export async function get(path) {
     const response = await fetch(baseUrl + path, {credentials: 'include'})
@@ -10,9 +10,6 @@ export async function req_file(path, body, method) {
         method: method || 'POST',
         credentials: 'include',
         body: body,
-        // headers: {
-        //     'Content-Type': 'multipart/form-data'
-        // }
     }
 
     const response = await fetch(baseUrl + path, options);

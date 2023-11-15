@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { req_file } from "../request"
-import { File_input, Text_area, Text_input } from "./Input"
+import { FileInput, TextArea, TextInput } from "./Input"
 import { GreenButton } from "./Button"
 import { useNavigate } from "react-router-dom"
 
@@ -45,9 +45,9 @@ export function NewFile(props) {
         <div className="w-full h-full flex justify-center items-center">
             <div className="h-fit">
                 <h1 className="text-3xl">Add New</h1>
-                <Text_input onChange={onFileChange} label="File Name" name="name"/>
-                <Text_area onChange={onFileChange} label="Description" name="description"/>
-                <File_input onChange={onChange} placeholder="Save more detail about the file..."/>
+                <TextInput onChange={onFileChange} label="File Name" name="name"/>
+                <TextArea onChange={onFileChange} label="Description" name="description"/>
+                <FileInput onChange={onChange} placeholder="Save more detail about the file..."/>
                 <div className="flex grow justify-center mt-6">
                     <GreenButton onClick={submit} label="Add">Submit</GreenButton>
                 </div>

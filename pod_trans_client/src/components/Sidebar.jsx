@@ -21,7 +21,7 @@ export function Side(props) {
     const logOut = () => {
         req('sessions', null , 'DELETE')
             .then(data => {
-                if(data.status = 200){
+                if(data.status === 200){
                     navigate('/signIn')
                     props.setUser([])
                     props.setAlert({ message: data.message, color: 'yellow'})
@@ -47,7 +47,7 @@ export function Side(props) {
                     </div>
                 </MenuItem>
                 {
-                    props.user.length != 0 ? 
+                    props.user.length !== 0 ? 
                         <div>
                             <MenuItem className='flex justify-center hover:text-black' component={<Link to='/list' />}>
                                 <div className='flex flex-row justify-center items-center'>
@@ -70,12 +70,12 @@ export function Side(props) {
                             </div>
                         </MenuItem>
                 }
-                <MenuItem className='flex justify-center hover:text-black' onClick={() => ( props.user.length != 0 ? logOut() : navigate('/signIn'))}>
+                <MenuItem className='flex justify-center hover:text-black' onClick={() => ( props.user.length !== 0 ? logOut() : navigate('/signIn'))}>
                     <div className='flex flex-row justify-center items-center'>
                         <p><IoMdPower className='m-2 text-2xl'/></p>
                         {collapsed ? "" : 
                             (
-                                props.user.length != 0 ? <p>Logout</p> : <p>Login</p>
+                                props.user.length !== 0 ? <p>Logout</p> : <p>Login</p>
                             )
                         }
                     </div>
