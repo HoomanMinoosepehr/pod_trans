@@ -16,7 +16,7 @@
 ## How to run:
 This application is dockerized, so for running the application, after cloning the repo, make sure that you are at the root directory(where the docker-compose file is placed), run this command on your terminal "docker compose build" and after creating images, using command "docker compose run" run the containers and afterward by going to 'localhost:5050' on your browser, you can enter the application.
 ### - But for now, the application can only transcribe files that are shorter than 1 minute because of the Google Cloud Speech's limit.
-## I need to add that because of security purposes, the API keys have been removed from the repo, so the application is not able to work properly.
+## I need to add that because of security purposes, the API keys have been removed from the repo, so the application is not able to communicate with the Google Cloud server and openAI API.
 
 
 ## Features:
