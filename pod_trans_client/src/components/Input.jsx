@@ -1,7 +1,7 @@
 
 
 
-export function Text_input (props) {
+export function TextInput (props) {
     return (
         <div className="mt-3">
             <label htmlFor={props.name} className="mx-1">{props.label} : </label><br/>
@@ -16,7 +16,7 @@ export function Text_input (props) {
     )
 }
 
-export function File_input (props) {
+export function FileInput (props) {
     return (
         <div className="mt-3">
             <label htmlFor="file" className="">File: </label><br />
@@ -29,7 +29,7 @@ export function File_input (props) {
     )
 }
 
-export function Text_area (props) {
+export function TextArea (props) {
     return (
         <div className="mt-3">
             <label htmlFor={props.name} className="mx-1">{props.label} : </label><br/>

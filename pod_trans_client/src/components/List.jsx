@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { get } from "../request"
-import { GreenButton } from "./Button"
 import { useNavigate } from "react-router-dom"
 
 
@@ -20,7 +19,7 @@ export function List(props) {
         <div className="grow flex justify-center mt-20 ">
             <div className="w-2/3 flex items-center flex-col">
                 <h1 className="text-3xl">List of saved files</h1>
-                { files.length == 0 ? (
+                { files.length === 0 ? (
                         <p className="mt-4">You have no saved file!</p>
                     ) : (
                         files.map((file, index) => {
