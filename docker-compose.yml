@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+
+  database: 
+    image: postgres:latest
+    container_name: db
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pod_trans
+      POSTGRES_PASSWORD: 137278
+    networks:
+      - pod_trans_network
+
+  back:
+    build: pod_trans_api
+    container_name: back
+    hostname: back
+    image: pod_trans_back
+    entrypoint: /app/entrypoint.sh
+    stdin_open: true
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./api:/api
+    depends_on:
+      - database
+    networks:
+      - pod_trans_network
+    ports:
+      - '3030:3030'
+
+  front:
+    build: pod_trans_client
+    container_name: front
+    hostname: front
+    image: pod_trans_front
+    ports:
+      - '5050:5050'
+    volumes:
+      - ./client:/client
+    networks:
+      - pod_trans_network
+
+volumes:
+  postgres_data:
+
+networks:
+  pod_trans_network:
+    driver: bridge

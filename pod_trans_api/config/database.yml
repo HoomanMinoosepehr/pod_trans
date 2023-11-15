@@ -20,6 +20,12 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: database
+  port: 5432
+  prepared_statements: false
+  advisory_locks: false
+  username: pod_trans
+  password: 137278
 
 development:
   <<: *default
