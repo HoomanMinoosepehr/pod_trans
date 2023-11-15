@@ -6,6 +6,7 @@ COPY Gemfile ./Gemfile
 COPY Gemfile.lock ./Gemfile.lock
 
 RUN apt-get update -qq && apt-get install -y node.js
+RUN apt -y update && apt -y install ffmpeg
 
 RUN bundle install
 

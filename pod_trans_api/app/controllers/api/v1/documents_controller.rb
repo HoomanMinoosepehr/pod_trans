@@ -131,3 +131,31 @@ class Api::V1::DocumentsController < ApplicationController
     end
     
 end
+
+
+# # action for files which are longer than 1 minute. this part has not completed yet
+# def split
+
+#     require 'streamio-ffmpeg'
+
+#     uploaded_file = UploadedFile.find params[:id]
+    
+#     # create a temporary file and write the audio file in it
+#     file = Tempfile.new(['audio', '.flac'])
+#     file.binmode
+#     file.write(uploaded_file.audio.download)
+
+#     # use streamio-ffmpeg to create a new audio file with 20 seconds duration
+#     audio = FFMPEG::Movie.new(file.path)
+#     duration = audio.duration
+    
+
+#     new = audio.transcode("tmp/new.flac", {seek_time: 0, duration: 20})
+#     # new_length = new.duration
+#     new_file = File.open(new.path)
+#     send_data new_file.read , type: 'audio/flac', disposition: "inline"
+#     File.delete(new.path)
+
+#     # render json: new_length
+
+# end
