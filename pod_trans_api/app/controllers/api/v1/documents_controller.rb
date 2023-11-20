@@ -51,74 +51,83 @@ class Api::V1::DocumentsController < ApplicationController
 
     def transcription
 
-        require "google/cloud/speech"
-
-        # find the specific file and extract its audio from the active storage table
-        document = Document.find params[:id]
-        audio = document.audio # file was converted to flac format before saving
-
-        # create a client for google could api
-        client = Google::Cloud::Speech.speech do |config|
-            config.credentials = 'config/key/credentials.json'
-        end
-
-        client = Google::Cloud::Speech.speech
-        # set the client's configs
-        config = {
-            language_code: 'en-US',
-            sample_rate_hertz: 48_000,
-            encoding: :FLAC
-        }
-        # attach the audio file to config
-        audio = {
-            content: audio.download
-        }
-
-        # getting the transcription
-        response = client.recognize config: config, audio: audio
-        result = response.results
-
-        # extracting required text from response
-        transcript = result.map do |res|
-            alternative = res.alternatives.first
-            alternative.transcript
-        end
-
-        # joining all the transcript texts together and creating one complete text
-        text = transcript.join('.')
-
-        # if updating database was successfull, then backend sends the text to front with the successfull status
-        if document.update(text: text)
+        begin
+            require "google/cloud/speech"
+    
+            # find the specific file and extract its audio from the active storage table
+            document = Document.find params[:id]
+            audio_data = document.audio # file was converted to flac format before saving
+    
+            # create a client for google could api
+            client = Google::Cloud::Speech.speech do |config|
+                config.credentials = 'config/key/credentials.json'
+            end
+    
+            client = Google::Cloud::Speech.speech
+            # set the client's configs
+            config = {
+                language_code: 'en-US',
+                sample_rate_hertz: 48_000,
+                encoding: :FLAC
+            }
+            # attach the audio file to config
+            audio_file = {
+                content: audio_data.download
+            }
+    
+            # getting the transcription
+            response = client.recognize config: config, audio: audio_file
+            result = response.results
+    
+            # extracting required text from response
+            transcript = result.map do |res|
+                alternative = res.alternatives.first
+                alternative.transcript
+            end
+    
+            # joining all the transcript texts together and creating one complete text
+            text = transcript.join('.')
+    
+            # if updating database was successfull, then backend sends the text to front with the successfull status
+            document.update(text: text)
             render json: { text: text, status: 200 }
-        else
-            render json: { message: 'Something went wrong! Please try again later.', status: 402}
+            
+        rescue StandardError => exception
+            
+            render json: { message: "Error: #{exception.message}", status: 500}
+            
         end
 
     end
     
     # sending transcripted text to the
     def summarize
-        require 'openai'
-
-        # getting the file's text
-        document = Document.find params[:id]
-        content = "please summarize the below text as short as possible: \n'#{document.text}'"
-
-        # creating the openai client
-        client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
-        response = client.chat(
-            parameters: {
-                model: 'gpt-3.5-turbo',
-                messages: [{ role: "user", content: content }]
-            }
-        )
-        summarized = response["choices"][0]['message']['content']
-
-        # if updating database was successfull, then backend sends the text to front with the successfull status
-        if document.update(summarize: summarized)
+        begin
+            
+            require 'openai'
+    
+            # getting the file's text
+            document = Document.find params[:id]
+            content = "please summarize the below text as short as possible: \n'#{document.text}'"
+    
+            # creating the openai client
+            client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+            response = client.chat(
+                parameters: {
+                    model: 'gpt-3.5-turbo',
+                    messages: [{ role: "user", content: content }]
+                }
+            )
+            summarized = response["choices"][0]['message']['content']
+    
+            # if updating database was successfull, then backend sends the text to front with the successfull status
+            document.update(summarize: summarized)
             render json: { summarize: summarized, status: 200 }
-        else
-            render json: { message: 'Something went Wrong! Please try again later.', status: 402}
+
+        rescue StandardError => exception
+
+            render json: { message: "Error: #{exception.message}", status: 500}
+            
         end
 
     end
