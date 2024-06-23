@@ -24,7 +24,7 @@ This application is dockerized, so to run the application, after cloning the rep
 - For transcribing audio files, this application uses Google Cloud Speech API
 
 ### Summarizing:
-- To summarize the transcribed text, it uses OpenAI API and easily summarizes it.
+- To summarize the transcribed text, it uses OpenAI API, which easily summarizes it.
 
 ### Docker:
 - The application is Dockerized, so it's really easy to develop or deploy. 
