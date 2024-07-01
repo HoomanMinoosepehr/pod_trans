@@ -19,7 +19,7 @@ This application is dockerized, so to run the application, after cloning the rep
 ## I also need to add, that because of security purposes, the API keys have been removed from the repo, so the application is not able to communicate with the Google Cloud server and openAI API.
 
 
-## Features:
+## Features
 ### Transcribing:
 - For transcribing audio files, this application uses Google Cloud Speech API
 
